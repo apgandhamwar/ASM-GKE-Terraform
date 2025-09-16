@@ -40,3 +40,20 @@ resource "google_project_service" "apis" {
   service = each.key
   disable_dependent_services = true
 }
+
+# Create a GKE cluster and register it to a Fleet
+resource "google_container_cluster" "asm_cluster" {
+  name     = var.cluster_name
+  location = var.region
+  depends_on = [google_project_service.apis]
+
+  # Enable features required by Anthos Service Mesh
+  workload_identity_config {
+    workload_pool = "${var.project_id}.svc.id.goog"
+  }
+  
+  # Register the cluster to the project's Fleet
+  fleet {
+    project = data.google_project.project.name
+  }
+}
