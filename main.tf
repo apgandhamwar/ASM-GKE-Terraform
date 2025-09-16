@@ -71,7 +71,7 @@ resource "google_gke_hub_feature_membership" "servicemesh_member" {
   provider = google-beta
   location = "global"
   feature  = google_gke_hub_feature.servicemesh.name
-  membership = google_container_cluster.asm_cluster.fleet[0].membership
+  membership = google_container_cluster.mycluster1.fleet[0].membership
   mesh {
     management = "MANAGEMENT_AUTOMATIC"
   }
