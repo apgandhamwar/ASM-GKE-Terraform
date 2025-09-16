@@ -42,7 +42,7 @@ resource "google_project_service" "apis" {
 }
 
 # Create a GKE cluster and register it to a Fleet
-resource "google_container_cluster" "mycluster1" {
+resource "google_container_cluster" "asm_mycluster" {
   name     = var.cluster_name
   location = var.region
   initial_node_count = 1
@@ -72,7 +72,7 @@ resource "google_gke_hub_feature_membership" "servicemesh_member" {
   provider = google-beta
   location = "global"
   feature  = google_gke_hub_feature.servicemesh.name
-  membership = google_container_cluster.mycluster1.fleet[0].membership
+  membership = google_container_cluster.asm_mycluster.fleet[0].membership
   mesh {
     management = "MANAGEMENT_AUTOMATIC"
   }
