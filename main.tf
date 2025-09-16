@@ -45,6 +45,7 @@ resource "google_project_service" "apis" {
 resource "google_container_cluster" "mycluster1" {
   name     = var.cluster_name
   location = var.region
+  initial_node_count = 1
   depends_on = [google_project_service.apis]
 
   # Enable features required by Anthos Service Mesh
