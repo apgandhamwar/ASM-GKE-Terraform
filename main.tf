@@ -57,3 +57,22 @@ resource "google_container_cluster" "asm_cluster" {
     project = data.google_project.project.name
   }
 }
+
+# Enable the 'servicemesh' feature on the fleet
+resource "google_gke_hub_feature" "servicemesh" {
+  provider = google-beta
+  name     = "servicemesh"
+  location = "global"
+  depends_on = [google_project_service.apis]
+}
+
+# Configure automatic management of the service mesh on the cluster
+resource "google_gke_hub_feature_membership" "servicemesh_member" {
+  provider = google-beta
+  location = "global"
+  feature  = google_gke_hub_feature.servicemesh.name
+  membership = google_container_cluster.asm_cluster.fleet[0].membership
+  mesh {
+    management = "MANAGEMENT_AUTOMATIC"
+  }
+}
