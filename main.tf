@@ -42,7 +42,7 @@ resource "google_project_service" "apis" {
 }
 
 # Create a GKE cluster and register it to a Fleet
-resource "google_container_cluster" "asm_cluster" {
+resource "google_container_cluster" "mycluster1" {
   name     = var.cluster_name
   location = var.region
   depends_on = [google_project_service.apis]
