@@ -48,6 +48,10 @@ resource "google_container_cluster" "asm_mycluster" {
   initial_node_count = 1
   depends_on = [google_project_service.apis]
 
+  timeouts {
+    create = "60m"
+  }
+
   # Enable features required by Anthos Service Mesh
   workload_identity_config {
     workload_pool = "${var.project_id}.svc.id.goog"
