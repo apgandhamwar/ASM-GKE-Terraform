@@ -35,6 +35,7 @@ resource "google_project_service" "apis" {
     "container.googleapis.com",
     "gkehub.googleapis.com",
     "mesh.googleapis.com",
+    "anthos.googleapis.com",
   ])
   project = var.project_id
   service = each.key
