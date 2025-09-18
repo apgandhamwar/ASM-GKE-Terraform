@@ -60,7 +60,7 @@ resource "google_container_cluster" "asm_mycluster" {
   
   # Register the cluster to the project's Fleet
   fleet {
-    project = data.google_project.project.name
+    project = var.project_id
   }
 }
 
